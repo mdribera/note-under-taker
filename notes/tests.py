@@ -135,8 +135,8 @@ class NoteLabelListViewTests(TestCase):
     The list view of notes associated with a given label
     """
     new_label = create_label(label_text="Journal")
-    past_note_one = create_note_with_labels(note_title="Dear diary", days=-5, label=new_label.id)
-    past_note_two = create_note_with_labels(note_title="February 24th, 2016", days=-4, label=new_label.id)
+    past_note_one = create_note_with_label(note_title="Dear diary", days=-5, label=new_label.id)
+    past_note_two = create_note_with_label(note_title="February 24th, 2016", days=-4, label=new_label.id)
     response = self.client.get(reverse('notes:label', args=(new_label.text,)))
     self.assertContains(response, past_note_one.note_title, status_code=200)
     self.assertContains(response, past_note_two.note_title, status_code=200)
@@ -151,7 +151,7 @@ def create_note(note_title, days):
   time = timezone.now() + datetime.timedelta(days=days)
   return Note.objects.create(note_title=note_title, pub_date=time)
 
-def create_note_with_labels(note_title, days, label):
+def create_note_with_label(note_title, days, label):
   """
   Creates a Note with the given `note_title`, associated with given `label`,
   and published the given number of `days` offset to now (negative for notes
