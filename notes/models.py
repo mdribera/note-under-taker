@@ -1,5 +1,8 @@
 from __future__ import unicode_literals
+
 import datetime
+
+from django.utils import timezone
 from django.db import models
 
 class Note(models.Model):
@@ -9,10 +12,11 @@ class Note(models.Model):
   labels = models.ManyToManyField('Label', related_name='notes')
 
   def was_published_recently(self):
-      return self.pub_date >= timezone.now() - datetime.timedelta(days=1)
+    now = timezone.now()
+    return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
   def __str__(self):
-      return self.note_title
+    return self.note_title
 
 class Label(models.Model):
   text = models.CharField(max_length=200, default="")
@@ -20,4 +24,4 @@ class Label(models.Model):
   text_color = models.CharField(max_length=6, default="000000")
 
   def __str__(self):
-      return self.text
+    return self.text
