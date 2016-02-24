@@ -7,7 +7,7 @@ from django.db import models
 
 class Note(models.Model):
   note_title = models.CharField(max_length=200)
-  note_text = models.CharField(max_length=1000)
+  note_text = models.TextField(max_length=1000)
   pub_date = models.DateTimeField('date published')
   labels = models.ManyToManyField('Label', related_name='notes')
 
