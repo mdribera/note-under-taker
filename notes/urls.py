@@ -5,6 +5,8 @@ app_name = 'notes'
 urlpatterns = [
 	# ex: /notes
   url(r'^$', views.IndexView.as_view(), name='index'),
+	# ex: /notes/label
+  url(r'^(?P<text>[A-Za-z]+)/$', views.LabelView.as_view(), name='label'),
   # ex: /notes/2
   url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
 ]
