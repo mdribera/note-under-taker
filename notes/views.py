@@ -24,7 +24,7 @@ class LabelView(generic.ListView):
     Return the last five notes
     with a given label text
     """
-    label = get_object_or_404(Label, text=self.kwargs['text'])
+    label = get_object_or_404(Label, text=self.args[0])
     return label.notes.filter(
       pub_date__lte=timezone.now()
     ).order_by('-pub_date')[:5]

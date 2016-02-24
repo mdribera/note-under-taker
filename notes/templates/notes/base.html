@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="{% static 'notes/style.css' %}" />
+  <title>{% block title %}Noteworthy{% endblock %}</title>
+</head>
+
+<body>
+  <div id="content">
+    <h1>NOTEWORTH</h1>
+    <nav>
+      {% for label in labels.all %}
+      <a href="{% url 'notes:label' label.text %}">{{% label.text %}}</a>
+      {{% endfor %}}
+    </nav>
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>

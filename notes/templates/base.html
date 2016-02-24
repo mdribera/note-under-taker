@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	{% load staticfiles %}
+	<link rel="stylesheet" type="text/css" href="{% static 'notes/style.css' %}" />
+	<title>{% block title %}Noteworthy{% endblock %}</title>
+</head>
+
+<body>
+	<div id="content">
+		<h1>NOTEWORTHY</h1>
+		{% block content %}{% endblock %}
+	</div>
+</body>
+</html>
