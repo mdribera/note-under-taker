@@ -1,16 +1,14 @@
 {% extends "base.html" %}
 
+{% load label_list %}
+
 {% block content %}
 {% if note %}
 <h2>{{ note.note_title }}</h2>
 <p>{{note.note_text }}</p>
-<ul>
-  {% for label in note.labels.all %}
-  <li style="color: #{{label.text_color}};background-color: #{{label.background_color}}">{{ label.text }}</li>
-  {% endfor %}
-</ul>
+{% label_list note.labels.all %}
 {% else %}
 <p>That note doesn't seem to exist.</p>
 {% endif %}
-<a href="{% url 'notes:index' %}">Back</a>
+<a href="{% url 'notes:index' %}">Back to all notes</a>
 {% endblock %}

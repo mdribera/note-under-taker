@@ -1,15 +1,20 @@
 {% extends "base.html" %}
 
+{% load label_list %}
+
 {% block content %}
 {% if latest_notes_list %}
-<ul>
+<div class='note-wrapper row'>
   {% for note in latest_notes_list %}
-  <li>
-    <a href="{% url 'notes:detail' note.id %}">{{ note.note_title }}</a>
-    <p>{{note.note_text }}</p>
-  </li>
+  <div class='note-item col-xs-12 col-sm-6 col-md-4'>
+    <div class='note-content'>
+      <h3><a href="{% url 'notes:detail' note.id %}">{{ note.note_title }}</a></h3>
+      <p>{{note.note_text }}</p>
+      {% label_list note.labels.all %}
+    </div>
+  </div>
   {% endfor %}
-</ul>
+</div>
 {% else %}
 <p>No notes are available.</p>
 {% endif %}
