@@ -2,6 +2,10 @@
 
 {% load label_list_note %}
 
+{% block nav %}
+<a href="{% url 'notes:index' %}">Back to all notes</a>
+{% endblock %}
+
 {% block content %}
 {% if note %}
 <h2>{{ note.note_title }}</h2>
@@ -10,5 +14,4 @@
 {% else %}
 <p>That note doesn't seem to exist.</p>
 {% endif %}
-<a href="{% url 'notes:index' %}">Back to all notes</a>
 {% endblock %}
