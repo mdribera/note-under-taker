@@ -9,7 +9,7 @@
   <div class='note-item col-xs-12 col-sm-6 col-md-4'>
     <div class='note-content'>
       <h3><a href="{% url 'notes:detail' note.id %}">{{ note.note_title }}</a></h3>
-      <p>{{note.note_text }}</p>
+      <p class='note-body'>{{note.note_text }}</p>
       {% label_list note.labels.all %}
     </div>
   </div>
