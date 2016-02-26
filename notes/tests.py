@@ -91,6 +91,37 @@ class NoteIndexViewTests(TestCase):
       ['<Note: Thing 1>', '<Note: Thing 2>']
     )
 
+class NoteIndexViewWithLabelTests(TestCase):
+  def test_label_view_not_found(self):
+    """
+    If given label doesn't exist return a 404
+    """
+    response = self.client.get('/notes/?label=notalabel')
+    self.assertEqual(response.status_code, 404)
+
+  def test_label_view_no_notes_found(self):
+    """
+    If there aren't any notes associated with a certain label
+    an appropriate message should be displayed.
+    """
+    new_label = create_label("Journal")
+    response = self.client.get('/notes/?label=' + new_label.text)
+    self.assertEqual(response.status_code, 200)
+    self.assertContains(response, "No notes are available.")
+    self.assertQuerysetEqual(response.context['latest_notes_list'], [])
+
+  def test_label_view_past_notes_found(self):
+    """
+    The list view of notes associated with a given label
+    """
+    new_label = create_label(label_text="Journal")
+    past_note_one = create_note_with_label(note_title="Dear diary", days=-5, label=new_label.id)
+    past_note_two = create_note_with_label(note_title="February 24th, 2016", days=-4, label=new_label.id)
+    response = self.client.get('/notes/?label=' + new_label.text)
+    self.assertContains(response, past_note_one.note_title, status_code=200)
+    self.assertContains(response, past_note_two.note_title, status_code=200)
+    self.assertQuerysetEqual(response.context['latest_notes_list'], ['<Note: February 24th, 2016>', '<Note: Dear diary>'])
+
 class NoteDetailViewTests(TestCase):
   def test_detail_view_not_found(self):
     """
@@ -110,37 +141,6 @@ class NoteDetailViewTests(TestCase):
     response = self.client.get(reverse('notes:detail', args=(past_note.id,)))
     self.assertEqual(response.status_code, 200)
     self.assertContains(response, past_note.note_title, status_code=200)
-
-class NoteLabelListViewTests(TestCase):
-  def test_label_view_not_found(self):
-    """
-    If given label doesn't exist return a 404
-    """
-    response = self.client.get(reverse('notes:label', args=("DoesntExist",)))
-    self.assertEqual(response.status_code, 404)
-
-  def test_label_view_no_notes_found(self):
-    """
-    If there aren't any notes associated with a certain label
-    an appropriate message should be displayed.
-    """
-    new_label = create_label("Journal")
-    response = self.client.get(reverse('notes:label', args=(new_label.text,)))
-    self.assertEqual(response.status_code, 200)
-    self.assertContains(response, "No notes are available.")
-    self.assertQuerysetEqual(response.context['latest_notes_list'], [])
-
-  def test_label_view_past_notes_found(self):
-    """
-    The list view of notes associated with a given label
-    """
-    new_label = create_label(label_text="Journal")
-    past_note_one = create_note_with_label(note_title="Dear diary", days=-5, label=new_label.id)
-    past_note_two = create_note_with_label(note_title="February 24th, 2016", days=-4, label=new_label.id)
-    response = self.client.get(reverse('notes:label', args=(new_label.text,)))
-    self.assertContains(response, past_note_one.note_title, status_code=200)
-    self.assertContains(response, past_note_two.note_title, status_code=200)
-    self.assertQuerysetEqual(response.context['latest_notes_list'], ['<Note: February 24th, 2016>', '<Note: Dear diary>'])
 
 def create_note(note_title, days):
   """

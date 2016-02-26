@@ -11,21 +11,14 @@ class IndexView(generic.ListView):
 
   def get_queryset(self):
     """ Return the last five notes """
-    return Note.objects.filter(
-      pub_date__lte=timezone.now()
-    ).order_by('-pub_date')[:5]
+    label_param = self.request.GET.get('label')
+    if label_param is None:
+      notes = Note.objects.all()
+    else:
+      label = get_object_or_404(Label, text=label_param)
+      notes = label.notes
 
-class LabelView(generic.ListView):
-  template_name = 'notes/index.html'
-  context_object_name = 'latest_notes_list'
-
-  def get_queryset(self):
-    """
-    Return the last five notes
-    with a given label text
-    """
-    label = get_object_or_404(Label, text=self.args[0])
-    return label.notes.filter(
+    return notes.filter(
       pub_date__lte=timezone.now()
     ).order_by('-pub_date')[:5]
 

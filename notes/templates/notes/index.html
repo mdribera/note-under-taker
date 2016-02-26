@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load label_list %}
+{% load label_list_note %}
 
 {% block content %}
 {% if latest_notes_list %}
@@ -10,7 +10,7 @@
     <div class='note-content'>
       <h3><a href="{% url 'notes:detail' note.id %}">{{ note.note_title }}</a></h3>
       <p class='note-body'>{{note.note_text }}</p>
-      {% label_list note.labels.all %}
+      {% label_list_note note.labels.all %}
     </div>
   </div>
   {% endfor %}

@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
-{% load label_list %}
+{% load label_list_note %}
 
 {% block content %}
 {% if note %}
 <h2>{{ note.note_title }}</h2>
 <p class='note-body'>{{note.note_text }}</p>
-{% label_list note.labels.all %}
+{% label_list_note note.labels.all %}
 {% else %}
 <p>That note doesn't seem to exist.</p>
 {% endif %}
