@@ -8,7 +8,8 @@
 
 {% block content %}
 <div class="row">
-	<div class="col-xs-3">	{% if form.errors %}
+	<div class="col-xs-4">
+		{% if form.errors %}
 		<p class="bg-danger">Your username and password didn't match. Please try again.</p>
 		{% endif %}
 

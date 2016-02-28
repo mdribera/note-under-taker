@@ -39,13 +39,13 @@ class DetailView(generic.DetailView):
 def signup(request):
     """ A user is already signed in """
     if request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('index'))
+        return HttpResponseRedirect(reverse('notes:index'))
     """ If this is a POST request we need to process the form data """
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('notes:index'))
     else:
         """ If it's a GET request (or any other method) we'll create a blank form """
         form = UserCreationForm()
