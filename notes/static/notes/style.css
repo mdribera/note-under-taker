@@ -76,3 +76,9 @@ h2 {
 .form-group label {
 	line-height: 34px;
 }
+
+.form-group .error {
+	margin-left: 15px;
+	margin-right: 15px;
+	padding: 5px;
+}

@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
 {% load label_list_note %}
+{% load label_list_nav %}
+
+{% block nav %}
+	{% label_list_nav request %}
+{% endblock %}
 
 {% block content %}
 {% if latest_notes_list %}

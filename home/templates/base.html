@@ -22,10 +22,8 @@
 <body>
   <div class='page'>
     <div class='container header'>
-      {% include "notes/header.html" %}
-      {% block nav %}
-        {% label_list_nav request %}
-      {% endblock %}
+      {% include "header.html" %}
+      {% block nav %}{% endblock %}
     </div>
     <div class='container content'>
       {% block content %}{% endblock %}

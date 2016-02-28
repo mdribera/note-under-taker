@@ -1,8 +1,4 @@
-from django.contrib.auth.forms import UserCreationForm
-from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.views import generic
 
@@ -34,19 +30,3 @@ class DetailView(generic.DetailView):
     def get_queryset(self):
         """ Exclude notes that haven't been published yet """
         return Note.objects.filter(pub_date__lte=timezone.now())
-
-
-def signup(request):
-    """ A user is already signed in """
-    if request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('notes:index'))
-    """ If this is a POST request we need to process the form data """
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            return HttpResponseRedirect(reverse('notes:index'))
-    else:
-        """ If it's a GET request (or any other method) we'll create a blank form """
-        form = UserCreationForm()
-    return render(request, 'registration/signup.html', {'form': form})

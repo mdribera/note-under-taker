@@ -32,8 +32,9 @@ LOGIN_REDIRECT_URL = '/notes'
 # Application definition
 
 INSTALLED_APPS = [
-    # 'notes.apps.NotesConfig',
     'notes',
+    'users',
+    'home',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

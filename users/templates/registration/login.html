@@ -3,7 +3,7 @@
 {% load add_class %}
 
 {% block nav %}
-<p>Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+<p>Don't have an account? <a href="{% url 'users:signup' %}">Sign up</a></p>
 {% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
 		<p class="bg-danger">Your username and password didn't match. Please try again.</p>
 		{% endif %}
 
-		<form class="form-horizontal" method="post" action="{% url 'django.contrib.auth.views.login' %}">
+		<form class="form-horizontal" method="post" action="{% url 'users:login' %}">
 			{% csrf_token %}
 			<div class="form-group">
 				<label class="col-xs-4" for="id_username">Username:</label>
