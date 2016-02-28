@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block nav %}
+  <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+{% endblock %}
+
+{% block content %}
+<div class="signup-form">
+  <form action="{% url 'signup' %}" method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <div class="input-group">
+      {{ form.username.errors }}
+      <label for="id_username">Username:</label>
+      <input id="id_username" maxlength="30" name="username" type="text">
+    </div>
+    <div class="input-group">
+      {{ form.password1.errors }}
+      <label for="id_password1">Password:</label>
+      <input id="id_password1" name="password1" type="password">
+    </div>
+    <div class="input-group">
+      {{ form.password2.errors }}
+      <label for="id_password2">Password again:</label>
+      <input id="id_password2" name="password2" type="password">
+    </div>
+    <div class="input-group">
+      <input value="Join" type="submit">
+    </div>
+  </form>
+</div>
+{% endblock %}

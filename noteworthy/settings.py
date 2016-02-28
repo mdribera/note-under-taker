@@ -25,8 +25,9 @@ SECRET_KEY = '1msygf#m$@xjvga1(pdxcbhs#5%%&s^jpmls-o3-+s7c4w90+_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
+LOGIN_REDIRECT_URL = '/notes'
 
 # Application definition
 

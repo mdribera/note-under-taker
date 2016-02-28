@@ -3,15 +3,15 @@
 {% load label_list_note %}
 
 {% block nav %}
-<a href="{% url 'notes:index' %}">Back to all notes</a>
+	<a href="{% url 'notes:index' %}">Back to all notes</a>
 {% endblock %}
 
 {% block content %}
-{% if note %}
-<h2>{{ note.note_title }}</h2>
-<p class='note-body'>{{note.note_text }}</p>
-{% label_list_note note.labels.all %}
-{% else %}
-<p>That note doesn't seem to exist.</p>
-{% endif %}
+	{% if note %}
+		<h2>{{ note.note_title }}</h2>
+		<p class='note-body'>{{note.note_text }}</p>
+	{% label_list_note note.labels.all %}
+	{% else %}
+		<p>That note doesn't seem to exist.</p>
+	{% endif %}
 {% endblock %}

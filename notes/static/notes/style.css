@@ -16,7 +16,6 @@ h2 {
 	color: #777;
 }
 
-
 .page {
 	display: flex;
 	flex-direction: column;
@@ -29,6 +28,16 @@ h2 {
 .page > .content {
 	padding-top: 15px;
 	flex: 1;
+}
+
+.container.header {
+	position: relative;
+}
+
+.registration-controls {
+	position: absolute;
+	top: 0;
+	right: 15px;
 }
 
 .note-item {

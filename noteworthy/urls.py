@@ -14,9 +14,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import include, url
-from django.contrib import admin
+from django.contrib import admin, auth
+from django.contrib.auth import views as auth_views
+from django.utils.functional import curry
+from django.views.defaults import *
+from notes import views
+
+handler500 = curry(server_error, template_name='500.html')
+handler404 = curry(page_not_found, template_name='404.html')
+handler403 = curry(permission_denied, template_name='403.html')
 
 urlpatterns = [
+    # ex: /
+    # url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^notes/', include('notes.urls')),
+    url(r'^signup/$', views.signup, name='signup'),
+    url(r'^login/$', auth_views.login, name='login'),
+    url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^admin/', admin.site.urls),
 ]
