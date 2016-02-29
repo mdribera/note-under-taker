@@ -25,7 +25,7 @@ handler403 = curry(permission_denied, template_name='403.html')
 
 urlpatterns = [
     url(r'^$', views.index, name="index"),
-    url(r'^notes/', include('notes.urls')),
-    url(r'^users/', include('users.urls')),
+    url(r'^notes/', include('notes.urls', namespace='notes')),
+    url(r'^users/', include('users.urls', namespace='users'))),
     url(r'^admin/', admin.site.urls),
 ]
