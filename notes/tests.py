@@ -54,7 +54,7 @@ class NoteIndexViewTests(TestCase):
         Index page should display note if it was published in the past
         """
         create_note(note_title="You will read this.",
-                    days=30, user=create_user("mdribera"))
+                    days=30, user=create_user("mark"))
         response = self.client.get(reverse('notes:index'))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(response.context['latest_notes_list'], [])
@@ -64,7 +64,7 @@ class NoteIndexViewTests(TestCase):
         Index page should display note if it was published in the past
         """
         create_note(note_title="Something about the past.",
-                    days=-30, user=create_user("mdribera"))
+                    days=-30, user=create_user("mark"))
         response = self.client.get(reverse('notes:index'))
         self.assertEqual(response.status_code, 200)
         self.assertQuerysetEqual(
@@ -77,7 +77,7 @@ class NoteIndexViewTests(TestCase):
         Index page should display note if it was published in the past
         """
         create_note(note_title="Something about the past.",
-                    days=-30, user=create_user("mdribera"))
+                    days=-30, user=create_user("mark"))
         create_note(note_title="A future note.", days=30,
                     user=create_user("markymark"))
         response = self.client.get(reverse('notes:index'))
@@ -92,7 +92,7 @@ class NoteIndexViewTests(TestCase):
         Index page should display note if it was published in the past
         """
         create_note(note_title="Thing 1", days=-2,
-                    user=create_user("mdribera"))
+                    user=create_user("mark"))
         create_note(note_title="Thing 2", days=-3,
                     user=create_user("markymark"))
         response = self.client.get(reverse('notes:index'))
@@ -129,16 +129,23 @@ class NoteIndexViewWithLabelTests(TestCase):
         """
         new_label = create_label(label_text="Journal")
         past_note_one = create_note_with_label(
-            note_title="Dear diary", days=-5, label=new_label.id, user=create_user("mdribera"))
+            note_title="Dear diary",
+            days=-5,
+            label=new_label.id,
+            user=create_user("mark"))
         past_note_two = create_note_with_label(
-            note_title="February 24th, 2016", days=-4, label=new_label.id, user=create_user("markymark"))
+            note_title="February 24th, 2016",
+            days=-4,
+            label=new_label.id,
+            user=create_user("markymark"))
         response = self.client.get('/notes/?label=' + new_label.text)
         self.assertContains(
             response, past_note_one.note_title, status_code=200)
         self.assertContains(
             response, past_note_two.note_title, status_code=200)
-        self.assertQuerysetEqual(response.context['latest_notes_list'], [
-                                 '<Note: February 24th, 2016>', '<Note: Dear diary>'])
+        self.assertQuerysetEqual(
+            response.context['latest_notes_list'],
+            ['<Note: February 24th, 2016>', '<Note: Dear diary>'])
 
 
 class NoteDetailViewTests(TestCase):
@@ -149,7 +156,9 @@ class NoteDetailViewTests(TestCase):
         should return a 404
         """
         future_note = create_note(
-            note_title="You're in the future, man!", days=30, user=create_user("mdribera"))
+            note_title="You're in the future, man!",
+            days=30,
+            user=create_user("mark"))
         response = self.client.get(
             reverse('notes:detail', args=(future_note.id,)))
         self.assertEqual(response.status_code, 404)
@@ -160,7 +169,9 @@ class NoteDetailViewTests(TestCase):
         should display its title and text
         """
         past_note = create_note(
-            note_title="Hogwarts, a history", days=-5, user=create_user("mdribera"))
+            note_title="Hogwarts, a history",
+            days=-5,
+            user=create_user("mark"))
         response = self.client.get(
             reverse('notes:detail', args=(past_note.id,)))
         self.assertEqual(response.status_code, 200)
@@ -174,8 +185,10 @@ def create_note(note_title, days, user):
     in the past, positive for notes that have yet to be published).
     """
     time = timezone.now() + datetime.timedelta(days=days)
-    user = User.objects.create(username='mdribera')
-    return Note.objects.create(note_title=note_title, author=user, pub_date=time)
+    return Note.objects.create(
+        note_title=note_title,
+        author=user,
+        pub_date=time)
 
 
 def create_note_with_label(note_title, days, label, user):

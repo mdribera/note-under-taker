@@ -2,12 +2,12 @@
 
 {% block content %}
 <div class="row">
-	<div class="col-xs-12 text-center">
-		{% if user.is_authenticated %}
-			<h2>Welcome to UNDERnoteTAKER, {{ user.username }}</h2>
-		{% else %}
-			<h2>Welcome to UNDERnoteTAKER</h2>
-		{% endif %}
-	</div>
+  <div class="col-xs-12 text-center">
+    {% if user.is_authenticated %}
+    <h2>Welcome to NOTEunderTAKER, {{ user.username }}</h2>
+    {% else %}
+    <h2>Welcome to NOTEunderTAKER</h2>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}
