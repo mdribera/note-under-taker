@@ -132,6 +132,7 @@ h2 {
 		position: relative;
 		float: right;
 		margin-bottom: 15px;
+		right: 0;
 	}
 
 	.label-list {
