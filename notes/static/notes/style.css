@@ -40,8 +40,21 @@ h2 {
 	right: 15px;
 }
 
+
+.note-wrapper {
+	-moz-column-width: 36rem;
+	-webkit-column-width: 36rem;
+	-moz-column-gap: 1rem;
+	-webkit-column-gap: 1rem;
+}
+
 .note-item {
-	margin-bottom: 1em;
+	position: relative;
+	display: inline-block;
+	margin-bottom: 1rem;
+	padding:  1rem;
+	width:  100%;
+	background:  #efefef;
 }
 
 .note-content {

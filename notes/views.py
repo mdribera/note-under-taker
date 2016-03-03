@@ -57,9 +57,8 @@ class ComposeView(generic.CreateView):
             note = form.save(commit=False)
             note.pub_date = timezone.now()
             note.author = request.user
-            # import pdb
-            # pdb.set_trace()
             note.save()
+            form.save_m2m()
             return HttpResponseRedirect(
                 reverse('notes:detail', kwargs={'pk': note.id}))
 

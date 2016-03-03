@@ -19,10 +19,10 @@
   <!-- Tab panes -->
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane fade in active" id="home">
-      <div class="note-wrapper row">
+      <div class="note-wrapper">
         {% if notes %}
         {% for note in notes %}
-        <div class="note-item col-xs-12 col-sm-6 col-md-4">
+        <div class="note-item">
         <div class="note-controls">
           <a class="btn btn-success" href="{% url 'notes:detail' note.id %}">View</a>
           <a class="btn btn-primary" href="{% url 'notes:edit' note.id %}">Edit</a>
@@ -31,7 +31,7 @@
           <div class="note-content">
             <h3><a href="{% url 'notes:detail' note.id %}">{{ note.note_title }}</a></h3>
             <p class="note-body">{{ note.note_text }}</p>
-            <p>Published: {{note.pub_date}}</p>
+            <p class="small">{{note.pub_date}}</p>
             {% label_list_note note.labels.all %}
           </div>
         </div>
@@ -45,7 +45,8 @@
       <p>MESSAGES MESSAGES MESSAGES</p>
     </div>
     <div role="tabpanel" class="tab-pane fade" id="settings">
-      <p>SETTINGS SETTINGS SETTINGS</p>
+      <p>Username: {{user.username}}</p>
+      <p>Some other stuffs...</p>
     </div>
   </div>
 
