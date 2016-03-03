@@ -27,7 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost']
 
-LOGIN_REDIRECT_URL = '/notes'
+LOGIN_REDIRECT_URL = '/users/profile/'
+LOGIN_URL = '/users/login/'
 
 # Application definition
 

@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils import timezone
+from django.utils.decorators import method_decorator
 from django.views import generic
 
 from notes.models import Note
@@ -36,6 +37,7 @@ class SignupView(generic.View):
         return render(request, self.template_name, {'form': form})
 
 
+@method_decorator(login_required, name='dispatch')
 class ProfileView(generic.DetailView):
     model = User
     template_name = "users/profile.html"
