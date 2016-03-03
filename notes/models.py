@@ -18,6 +18,9 @@ class Note(models.Model):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
+    def get_absolute_url(self):
+        return reverse('notes:detail', kwargs={'pk': self.pk})
+
     def __str__(self):
         return self.note_title
 

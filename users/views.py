@@ -1,9 +1,14 @@
+from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.utils import timezone
 from django.views import generic
+
+from notes.models import Note
 
 
 class SignupView(generic.View):
@@ -29,3 +34,12 @@ class SignupView(generic.View):
             login(request, new_user)
             return HttpResponseRedirect(reverse('index'))
         return render(request, self.template_name, {'form': form})
+
+
+class ProfileView(generic.DetailView):
+    model = User
+    template_name = "users/profile.html"
+
+    def get(self, request):
+        notes = Note.objects.filter(author=request.user).order_by('-pub_date')
+        return render(request, self.template_name, {'notes': notes})

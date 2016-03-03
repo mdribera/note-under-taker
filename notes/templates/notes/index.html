@@ -15,6 +15,8 @@
     <div class='note-content'>
       <h3><a href="{% url 'notes:detail' note.id %}">{{ note.note_title }}</a></h3>
       <p class='note-body'>{{ note.note_text }}</p>
+      <p>Author: <a href="{% url 'notes:index' %}?user={{note.author.username}}">{{note.author.username}}</a></p>
+      <p>Published: {{note.pub_date}}</p>
       {% label_list_note note.labels.all %}
     </div>
   </div>
