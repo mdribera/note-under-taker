@@ -97,7 +97,7 @@ h2 {
 }
 
 .note-controls {
-	display: flex;
+	display: none;
 	align-items: center;
 	justify-content: center;
 	position: absolute;
@@ -119,6 +119,7 @@ h2 {
 }
 
 .profile-content .note-item:hover .note-controls {
+	display: flex;
 	opacity: 1;
 }
 
