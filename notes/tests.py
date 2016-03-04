@@ -107,10 +107,11 @@ class NoteIndexViewWithLabelTests(TestCase):
 
     def test_label_view_not_found(self):
         """
-        If given label doesn't exist return a 404
+        If given label doesn't exist it shouldn't return any notes
         """
         response = self.client.get('/notes/?label=notalabel')
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 200)
+        self.assertQuerysetEqual(response.context['latest_notes_list'], [])
 
     def test_label_view_no_notes_found(self):
         """
