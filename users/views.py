@@ -18,7 +18,7 @@ class SignupView(generic.View):
 
     def get(self, request):
         if request.user.is_authenticated():
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('users:profile'))
         else:
             return render(
                 request,
@@ -42,5 +42,7 @@ class ProfileView(generic.DetailView):
     template_name = 'users/profile.html'
 
     def get(self, request):
-        notes = Note.objects.filter(author=request.user).order_by('-pub_date')
-        return render(request, self.template_name, {'notes': notes})
+        if request.user.is_authenticated():
+            notes = Note.objects.filter(author=request.user).order_by('-pub_date')
+            return render(request, self.template_name, {'notes': notes})
+        return HttpResponseRedirect(reverse('notes:index'))
