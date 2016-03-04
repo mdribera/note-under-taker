@@ -37,7 +37,7 @@ class SignupView(generic.View):
         return render(request, self.template_name, {'form': form})
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required(login_url="users:login"), name='dispatch')
 class ProfileView(generic.DetailView):
     model = User
     template_name = "users/profile.html"
