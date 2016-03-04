@@ -52,9 +52,9 @@ h2 {
 	position: relative;
 	display: inline-block;
 	margin-bottom: 1rem;
-	padding:  1rem;
+	padding:  0.4rem;
 	width:  100%;
-	background:  #efefef;
+	background:  #000000;
 }
 
 .note-content {
